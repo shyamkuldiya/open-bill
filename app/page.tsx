@@ -1,65 +1,125 @@
-import Image from "next/image";
+'use client'
+
+import { useTheme } from 'next-themes'
+import { InvoiceEditor } from '@/components/invoice-editor'
+import { InvoicePreview } from '@/components/invoice-preview'
+import { Button } from '@/components/ui/button'
+import { Moon, Sun, Download, Share2, PanelLeft, Split } from 'lucide-react'
+import { HugeiconsIcon } from '@hugeicons/react'
+import { YogaBallIcon } from '@hugeicons/core-free-icons'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const [view, setView] = useState<'both' | 'editor' | 'preview'>('both')
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex flex-col h-screen bg-background transition-colors duration-300">
+      {/* Navbar */}
+      <nav className="h-16 border-b flex items-center justify-between px-6 bg-card shrink-0 shadow-sm z-10">
+        <div className="flex items-center gap-2">
+          <div className="size-8 rounded bg-lime-500 flex items-center justify-center">
+            <HugeiconsIcon icon={YogaBallIcon} />
+          </div>
+          <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
+            Open Bill
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="hidden md:flex items-center bg-muted rounded-lg p-1">
+            <Button
+              variant={view === 'editor' ? 'secondary' : 'ghost'}
+              size="sm"
+              className="h-8 text-xs font-semibold"
+              onClick={() => setView('editor')}
+            >
+              Editor
+            </Button>
+            <Button
+              variant={view === 'both' ? 'secondary' : 'ghost'}
+              size="sm"
+              className="h-8 text-xs font-semibold"
+              onClick={() => setView('both')}
+            >
+              Both
+            </Button>
+            <Button
+              variant={view === 'preview' ? 'secondary' : 'ghost'}
+              size="sm"
+              className="h-8 text-xs font-semibold"
+              onClick={() => setView('preview')}
+            >
+              Preview
+            </Button>
+          </div>
+
+          <div className="h-8 w-px bg-border mx-2 hidden sm:block" />
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="rounded-full"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
+
+          <Button
+            variant="outline"
+            className="hidden sm:flex rounded-full font-semibold gap-2"
           >
-            Documentation
-          </a>
+            <Share2 className="h-4 w-4" /> Export
+          </Button>
+          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold px-6 gap-2 shadow-lg shadow-indigo-500/20">
+            <Download className="h-4 w-4" /> Download
+          </Button>
         </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="grow flex overflow-hidden">
+        {/* Editor Side */}
+        {(view === 'both' || view === 'editor') && (
+          <div
+            className={`flex flex-col border-r bg-zinc-50 dark:bg-zinc-950 transition-all duration-300 ease-in-out ${
+              view === 'both' ? 'w-[40%] xl:w-[35%]' : 'w-full'
+            }`}
+          >
+            <div className="p-6 pb-0 flex items-center justify-between">
+              <h2 className="text-lg font-bold flex items-center gap-2">
+                <PanelLeft className="h-5 w-5 text-indigo-600" /> Invoice
+                Creation
+              </h2>
+            </div>
+            <InvoiceEditor />
+          </div>
+        )}
+
+        {/* Preview Side */}
+        {(view === 'both' || view === 'preview') && (
+          <div
+            className={`grow bg-zinc-100 dark:bg-zinc-900 overflow-y-auto p-8 lg:p-12 transition-all duration-300 ease-in-out ${
+              view === 'both' ? 'w-[60%] xl:w-[65%]' : 'w-full'
+            }`}
+          >
+            <div className="max-w-fit mx-auto scale-[0.85] origin-top xl:scale-90 2xl:scale-100">
+              <InvoicePreview />
+            </div>
+          </div>
+        )}
       </main>
     </div>
-  );
+  )
 }
