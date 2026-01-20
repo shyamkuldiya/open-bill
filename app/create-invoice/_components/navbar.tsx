@@ -144,7 +144,7 @@ function Navbar({ view, setView, previewRef }: Props) {
     <header className="w-full  border-b  sticky top-0 left-0 z-50 bg-background">
       <nav className="h-16 max-w-[1440px] mx-auto  border-x px-4 flex items-center justify-between  shrink-0 z-10">
         <Link href={'/'} className="flex items-center gap-2">
-          <div className="size-8 rounded bg-primary  text-white flex items-center justify-center">
+          <div className="size-8 rounded bg-primary dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center">
             <HugeiconsIcon icon={YogaBallIcon} />
           </div>
           <span className="font-bold text-xl tracking-tight hidden sm:inline-block text-foreground">

@@ -77,7 +77,7 @@ const useInvoiceStore = create<TInvoiceStore>((set) => ({
   additionalDetails: {
     termsAndConditions: '',
     paymentDetails: '',
-    note: '',
+    notes: '',
   },
 
   updateCompanyDetails: (key, value) =>

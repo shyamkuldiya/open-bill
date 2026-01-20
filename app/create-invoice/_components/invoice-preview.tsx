@@ -1,7 +1,7 @@
 'use client'
 
 import { Separator } from '@/components/ui/separator'
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import useInvoiceStore from '@/store/invoice-store'
 import Image from 'next/image'
 import { formatCurrency } from '@/lib/utils'
@@ -19,6 +19,7 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
     (acc, item) => acc + item.quantity * item.price,
     0
   )
+
   const total = subtotal
 
   return (
@@ -28,12 +29,9 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
       className="flex flex-col p-12 mx-auto bg-white text-zinc-900 shadow-2xl min-w-[794px] min-h-[1123px] font-sans relative overflow-hidden print:shadow-none print:p-8"
       style={{ colorScheme: 'light' }}
     >
-      {/* Top Accent Bar */}
-
-      {/* Header Section */}
       <div className="flex justify-between items-start mb-12">
         <div className="space-y-6">
-          {companyDetails.logo ? (
+          {companyDetails.logo && (
             <Image
               height={60}
               width={120}
@@ -41,18 +39,12 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
               alt="Logo"
               className="h-12 object-contain object-left"
             />
-          ) : (
-            <div className="h-12 w-12 bg-zinc-100 rounded-lg flex items-center justify-center">
-              <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
-                Logo
-              </span>
-            </div>
           )}
           <div className="space-y-1">
-            <h1 className="text-2xl font-black tracking-tight text-zinc-900 uppercase">
+            <h1 className="text-xl font-bold tracking-tight text-zinc-900 uppercase max-w-sm wrap-break-word">
               {companyDetails.name || 'Your Company Name'}
             </h1>
-            <p className="text-xs text-zinc-500 whitespace-pre-line leading-relaxed max-w-xs">
+            <p className="text-xs text-zinc-500 whitespace-pre-line leading-relaxed max-w-xs wrap-break-word">
               {companyDetails.address || 'Company Address details go here'}
             </p>
           </div>
@@ -102,10 +94,10 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
             Bill To
           </p>
           <div className="space-y-1">
-            <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-tight">
+            <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-tight max-w-sm wrap-break-word">
               {clientDetails.name || 'Client Name'}
             </h3>
-            <p className="text-xs text-zinc-500 whitespace-pre-line leading-relaxed">
+            <p className="text-xs text-zinc-500 whitespace-pre-line leading-relaxed max-w-xs wrap-break-word">
               {clientDetails.address ||
                 'Client Address and contact information'}
             </p>
@@ -151,7 +143,7 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
                         {item.name || 'Untitled Item'}
                       </p>
                       {item.description && (
-                        <p className="text-xs text-zinc-500 leading-relaxed max-w-md">
+                        <p className="text-xs text-zinc-500 leading-relaxed max-w-sm wrap-break-word">
                           {item.description}
                         </p>
                       )}
@@ -191,13 +183,13 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
           </div>
 
           <div className="space-y-6">
-            {additionalDetails?.note && (
+            {additionalDetails?.notes && (
               <div className="space-y-2">
                 <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
                   Notes
                 </p>
                 <p className="text-[11px] text-zinc-500 leading-relaxed italic border-l-2 border-zinc-100 pl-4">
-                  {additionalDetails.note}
+                  {additionalDetails.notes}
                 </p>
               </div>
             )}

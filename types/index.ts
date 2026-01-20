@@ -28,5 +28,5 @@ export type TInvoiceItem = {
 export type TInvoiceAdditionalDetails = {
   paymentDetails: string
   termsAndConditions: string
-  note: string
+  notes: string
 }

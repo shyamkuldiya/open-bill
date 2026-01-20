@@ -15,7 +15,6 @@ export default function MainContent({ view, previewRef }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
 
-  // Auto-scale the preview to fit the container width
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
@@ -35,7 +34,7 @@ export default function MainContent({ view, previewRef }: Props) {
   }, [view])
 
   return (
-    <main className="grow flex h-[calc(100svh-64px)] overflow-hidden max-w-[1440px] mx-auto border-x bg-muted/10">
+    <main className="grow flex h-[calc(100svh-64px)] overflow-hidden max-w-[1440px] mx-auto border-x ">
       {/* Editor Side */}
       {(view === 'both' || view === 'editor') && (
         <div
@@ -48,7 +47,6 @@ export default function MainContent({ view, previewRef }: Props) {
         </div>
       )}
 
-      {/* Preview Side - Real HTML for 100% crispness */}
       {(view === 'both' || view === 'preview') && (
         <div
           ref={containerRef}
@@ -64,7 +62,7 @@ export default function MainContent({ view, previewRef }: Props) {
               width: '794px', // Standard A4 Width
             }}
           >
-            <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-sm overflow-hidden border border-zinc-200/50">
+            <div className="bg-white shadow-sm rounded-sm overflow-hidden border border-zinc-200/50">
               <InvoicePreview ref={previewRef} />
             </div>
           </div>
