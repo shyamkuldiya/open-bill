@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 }
 
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from 'sonner'
 
 export default function RootLayout({
   children,
@@ -33,11 +34,12 @@ export default function RootLayout({
       <body className={`${outfit.className} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-center" richColors />
         </ThemeProvider>
       </body>
     </html>

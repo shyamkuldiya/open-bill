@@ -7,11 +7,12 @@ export default function Home() {
     <div className="flex items-center justify-center h-screen bg-background p-6 ">
       <div className="max-w-md text-center mx-auto">
         <h1 className="text-4xl font-semibold">
-          Welcome to Open<span className="text-primary">Bill</span>
+          Account Registeration for Open
+          <span className="text-primary">Bill</span> Coming Soon
         </h1>
         <p className="text-muted-foreground mt-4 text-lg">
-          OpenBill is a free, open source invoice generator built with Next.js
-          and Tailwind CSS.
+          Account Registration on OpenBill is currently under development. In
+          the meantime, you can use the OpenBill app to create invoices.
         </p>
         <div className="flex items-center gap-3 mx-auto w-max">
           <Link
@@ -21,14 +22,6 @@ export default function Home() {
             )}
           >
             Create Invoice
-          </Link>
-          <Link
-            href={'/register'}
-            className={cn(
-              buttonVariants({ variant: 'secondary', className: 'mt-6' })
-            )}
-          >
-            Register Account
           </Link>
         </div>
       </div>
