@@ -31,9 +31,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useInvoiceStore } from '@/store/use-invoice-store'
+
 import { toast } from 'sonner'
 import { useIsMobile } from '@/hooks/use-mobile'
+import useInvoiceStore from '@/store/invoice-store'
 
 type Props = {
   view: TView
@@ -45,7 +46,7 @@ function Navbar({ view, setView, previewRef }: Props) {
   const [mounted, setMounted] = useState(false)
   const [isExporting, setIsExporting] = useState(false)
   const { theme, setTheme } = useTheme()
-  const store = useInvoiceStore()
+  const { invoiceDetails } = useInvoiceStore()
   const isMobile = useIsMobile()
 
   const generateImage = async (format: 'png' | 'jpeg') => {
@@ -94,13 +95,13 @@ function Navbar({ view, setView, previewRef }: Props) {
     try {
       if (action === 'download-pdf') {
         const pdf = await generatePDF()
-        if (pdf) pdf.save(`invoice-${store.invoiceNumber}.pdf`)
+        if (pdf) pdf.save(`invoice-${invoiceDetails.invoiceNumber}.pdf`)
         toast.success('PDF Downloaded (High Quality)')
       } else if (action === 'download-png') {
         const dataUrl = await generateImage('png')
         if (dataUrl) {
           const link = document.createElement('a')
-          link.download = `invoice-${store.invoiceNumber}.png`
+          link.download = `invoice-${invoiceDetails.invoiceNumber}.png`
           link.href = dataUrl
           link.click()
         }
@@ -117,7 +118,7 @@ function Navbar({ view, setView, previewRef }: Props) {
         )
         const newInvoice = {
           id: Date.now().toString(),
-          data: { ...store },
+          data: { ...invoiceDetails },
           savedAt: new Date().toISOString(),
         }
         localStorage.setItem(

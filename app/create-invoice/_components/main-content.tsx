@@ -21,7 +21,7 @@ export default function MainContent({ view, previewRef }: Props) {
         const containerWidth = containerRef.current.clientWidth - 64 // 64px padding
         const targetWidth = 794 // A4 width at 96dpi
         if (containerWidth < targetWidth) {
-          setScale(containerWidth / targetWidth)
+          setScale(containerWidth / targetWidth) // 690/794
         } else {
           setScale(1)
         }

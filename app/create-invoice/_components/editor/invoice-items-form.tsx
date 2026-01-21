@@ -36,7 +36,7 @@ export default function InvoiceItemsForm() {
               <Input
                 type="number"
                 placeholder="Qty"
-                value={item.quantity}
+                value={item.quantity || ''}
                 onChange={(e) =>
                   updateItems(item.id, 'quantity', Number(e.target.value))
                 }
@@ -46,7 +46,7 @@ export default function InvoiceItemsForm() {
               <Input
                 type="number"
                 placeholder="Price"
-                value={item.price}
+                value={item.price || ''}
                 onChange={(e) =>
                   updateItems(item.id, 'price', Number(e.target.value))
                 }

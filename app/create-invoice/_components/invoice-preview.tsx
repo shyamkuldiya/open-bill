@@ -188,7 +188,7 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
                 <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
                   Notes
                 </p>
-                <p className="text-[11px] text-zinc-500 leading-relaxed italic border-l-2 border-zinc-100 pl-4">
+                <p className="text-[11px] text-zinc-500 leading-relaxed italic border-l-2 border-zinc-100 pl-4 whitespace-pre-wrap">
                   {additionalDetails.notes}
                 </p>
               </div>
@@ -198,7 +198,7 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
                 <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
                   Terms & Conditions
                 </p>
-                <p className="text-[11px] text-zinc-500 leading-relaxed whitespace-pre-line">
+                <p className="text-[11px] text-zinc-500 leading-relaxed whitespace-pre-wrap">
                   {additionalDetails.termsAndConditions}
                 </p>
               </div>
@@ -208,7 +208,7 @@ export const InvoicePreview = forwardRef<HTMLDivElement>((props, ref) => {
                 <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
                   Payment Information
                 </p>
-                <p className="text-[11px] text-zinc-600 font-mono bg-zinc-50 p-3 rounded-md border border-zinc-100 leading-relaxed">
+                <p className="text-[11px] text-zinc-600 font-mono bg-zinc-50 p-3 rounded-md border border-zinc-100 leading-relaxed whitespace-pre-wrap">
                   {additionalDetails.paymentDetails}
                 </p>
               </div>
